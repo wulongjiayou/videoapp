@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/app.css" />
+		<script src="js/mui.min.js"></script>
+		
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			
+		</script>
+	</head>
+
+	<body>
+		<!--头部状态栏-->
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-bars mui-pull-left mui-plus-visible"></a>
+			<h1 class="mui-title">欢迎来到吴龙的视频管理系统</h1>
+		</header>
+		<!--搜索框-->
+		<div class="mui-content">
+			<div class="mui-content-padded" style="margin: 5px;">
+				<div class="mui-input-row mui-search " id='mui-search'>
+					<input type="search" class="mui-input-clear"  data-input-clear="1" data-input-search="1">
+					<span class="mui-icon mui-icon-clear mui-hidden"></span>
+					<span class="mui-placeholder">
+						<span class="mui-icon mui-icon-search"></span>
+					<span>
+							
+				</div>
+			</div>
+		</div>
+			<!--圖文列表-->
+			<ul class="mui-table-view mui-table-view-chevron" id="listul">
+				
+			</ul>
+		</div>
+	</body>
+</html>
+<!--创建模板-->
+<script type="text/javascript" src="js/jquery-1.12.3.js"></script>
+<script src="js/jquery.tmpl.min.js"></script>
+
+<script id="list" type="text/x-jquery-tmpl">
+{{each(i,videoobj) message}}
+<li class="mui-table-view-cell mui-media">
+	<a href="app.html?vid=${videoobj.vid}"  class="mui-navigate-right">
+		<img class="mui-media-object mui-pull-left" src="${videoobj.vimg}">
+		<div class="mui-media-body">
+			${videoobj.vtitle}
+			<p class="mui-ellipsis">${videoobj.vsummary}</p>
+		</div>
+	</a>
+</li>
+ {{/each}}
+</script>
+
+
+<script>
+$(function() {
+	getAjax();
+	$('.mui-input-clear').css({
+			"position": 'relative',
+			'z-index': '100'
+		})
+		.focus(function() {
+			$('#mui-search').addClass('mui-active')
+		})
+		.blur(function() {
+			$('#mui-search').removeClass('mui-active')
+		});
+});
+//创建ajax请求,请求的地址一定要完整
+function getAjax() {
+//	var url = 'http://127.0.0.1:6001/api/getvideos';
+	var url = 'http://wulong.ittun.com/api/getvideos';
+	$.getJSON(url, null, function(data) {
+		if(data.status==1){
+			alert(data.message);
+			return;
+		}
+//		var reslist=$("#list").tmpl(data);
+//		$("#listul").html(reslist);
+		$("#list").tmpl(data).appendTo('#listul');
+	})
+}</script>

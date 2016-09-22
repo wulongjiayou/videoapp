@@ -1,0 +1,30 @@
+{
+  "app.html": {
+    "href": "app.html",
+    "resources": [
+      "js/jquery-1.12.3.js",
+      "js/tvp.player.js",
+      "css/mui.min.css",
+      "css/app.css",
+      "js/mui.min.js"
+    ],
+    "refer": [
+      "index.html"
+    ],
+    "priority": 0
+  },
+  "index.html": {
+    "href": "index.html",
+    "resources": [
+      "js/jquery-1.12.3.js",
+      "js/jquery.tmpl.min.js",
+      "css/mui.min.css",
+      "css/app.css",
+      "js/mui.min.js"
+    ],
+    "refer": [
+      "app.html"
+    ],
+    "priority": 0
+  }
+}
